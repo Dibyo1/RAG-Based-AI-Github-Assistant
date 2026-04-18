@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GitHub Portfolio Advisor - Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#10141a",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "inverse-on-surface": "#2d3137",
+                        "on-tertiary": "#482900",
+                        "on-tertiary-fixed": "#2c1700",
+                        "background": "#10141a",
+                        "outline": "#958ea0",
+                        "on-surface-variant": "#cbc3d7",
+                        "on-tertiary-container": "#3f2300",
+                        "secondary-container": "#42474f",
+                        "tertiary-container": "#ca801e",
+                        "tertiary-fixed": "#ffdcbb",
+                        "surface-container": "#1c2026",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#c2c7d0",
+                        "surface-container-low": "#181c22",
+                        "primary-container": "#b76dff",
+                        "on-primary-container": "#400071",
+                        "tertiary": "#ffb869",
+                        "surface-container-highest": "#31353c",
+                        "primary-fixed": "#f0dbff",
+                        "on-surface": "#dfe2eb",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "surface-container-lowest": "#0a0e14",
+                        "surface-bright": "#353940",
+                        "on-background": "#dfe2eb",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "on-secondary-fixed": "#171c23",
+                        "surface-variant": "#31353c",
+                        "on-secondary": "#2c3138",
+                        "secondary": "#c2c7d0",
+                        "surface": "#10141a",
+                        "surface-tint": "#ddb7ff",
+                        "secondary-fixed": "#dee2ec",
+                        "on-secondary-fixed-variant": "#42474f",
+                        "on-secondary-container": "#b1b5be",
+                        "error-container": "#93000a",
+                        "on-primary-fixed": "#2c0051",
+                        "on-primary": "#490080",
+                        "surface-container-high": "#262a31",
+                        "outline-variant": "#494454",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "inverse-primary": "#842bd2",
+                        "primary": "#ddb7ff",
+                        "inverse-surface": "#dfe2eb",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- TopNavBar (Mobile Only) -->
+<nav class="md:hidden bg-slate-900/60 backdrop-blur-xl docked full-width top-0 sticky z-50 shadow-2xl shadow-black/40 flex justify-between items-center w-full px-6 py-4">
+<div class="text-xl font-bold text-slate-100 font-headline tracking-tight">GitHub Portfolio Advisor</div>
+<div class="flex gap-4">
+<button class="text-slate-400 hover:text-violet-300 transition-colors opacity-80 duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-violet-300 transition-colors opacity-80 duration-150">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</nav>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex flex-col h-screen w-[280px] fixed left-0 top-0 overflow-y-auto bg-[#181c22] py-8 px-4 z-40" style="box-shadow: none;">
+<!-- Header -->
+<div class="flex items-center gap-4 mb-10 px-4">
+<img alt="Advisor Logo" class="w-10 h-10 rounded-full object-cover border border-outline-variant/15" data-alt="Futuristic glowing purple AI core representation on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhbJLiSlfOL0dq2yrbnIC6z4lmJ4GzyYBAdrqA4CsR97gz5cSm7UrQOXqmupfqs0bZNAYH8mO1O7PwT8_gD3iZz8rm679r2D513co21PiBQYC_s4MxEcpLSYoZ5eh7dKii781bYnL78Jp1QecCADVrfQ2eCD_pbY6s00veriXaU3edIQbiNWg3MB2Hsvt_q2HRAp_b2dncKryM4QyQ9I9dL-bnV4GiyvIYnV5DUBZ4lFlJNAG4bAZ_1cebSo6h83BwBboJ7OxjFd_S"/>
+<div>
+<h1 class="font-headline font-black text-violet-400 tracking-tight text-lg">The Curator</h1>
+<p class="text-xs text-on-surface-variant/70 font-mono">v1.0.2</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-4 mb-8">
+<button class="w-full py-2.5 px-4 bg-gradient-to-r from-primary to-primary-container text-on-primary-container rounded-md font-label font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Analysis
+            </button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 font-headline uppercase text-xs tracking-widest hover:bg-slate-800/50 hover:text-slate-200 transition-all" href="http://localhost:8000/">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-violet-500/10 text-violet-400 border-r-2 border-violet-500 rounded-l-lg font-headline uppercase text-xs tracking-widest scale-95 duration-200" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="inventory_2">inventory_2</span>
+                Repositories
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 font-headline uppercase text-xs tracking-widest hover:bg-slate-800/50 hover:text-slate-200 transition-all" href="http://localhost:8000/insights-ui">
+<span class="material-symbols-outlined text-lg" data-icon="insights">insights</span>
+                Insights
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 font-headline uppercase text-xs tracking-widest hover:bg-slate-800/50 hover:text-slate-200 transition-all" href="http://localhost:8000/chat-ui">
+<span class="material-symbols-outlined text-lg" data-icon="auto_fix_high">auto_fix_high</span>
+                Chat
+            </a>
+</nav>
+<!-- Repo List -->
+<div class="mt-6 mb-4">
+    <p id="all-repos-btn" class="text-xs uppercase tracking-widest text-on-surface-variant/50 font-label mb-2 px-4 flex justify-between items-center cursor-pointer hover:text-primary transition-colors">
+        All Repos
+        <span class="material-symbols-outlined text-[16px]">search</span>
+    </p>
+    <ul id="repo-list" class="space-y-1 px-4 h-48 overflow-y-auto custom-scrollbar"></ul>
+</div>
+<!-- Footer Tabs -->
+<div class="mt-auto space-y-2 pt-8">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 font-headline uppercase text-xs tracking-widest hover:bg-slate-800/50 hover:text-slate-200 transition-all" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 font-headline uppercase text-xs tracking-widest hover:bg-slate-800/50 hover:text-slate-200 transition-all" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="menu_book">menu_book</span>
+                Documentation
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-[280px] bg-surface-container-low relative">
+<!-- Chat History -->
+<div id="chat-history" class="flex-1 overflow-y-auto p-6 md:p-12 space-y-8 custom-scrollbar"></div>
+<!-- Input Area -->
+<div class="p-6 bg-surface-container-low border-t border-outline-variant/10">
+<div class="max-w-4xl mx-auto relative bg-surface-container-highest rounded-xl p-2 border border-outline-variant/15 focus-within:bg-surface-bright focus-within:border-primary/30 focus-within:shadow-[0_0_15px_rgba(221,183,255,0.1)] transition-all">
+<div class="flex items-end gap-2">
+<textarea id="chat-input" class="w-full bg-transparent border-none text-on-surface placeholder-on-surface-variant/50 focus:ring-0 font-body text-sm resize-none py-3 px-4 max-h-32 overflow-y-auto" placeholder="Ask the Curator about your code..." rows="1"></textarea>
+<button id="send-btn" class="bg-gradient-to-r from-primary to-primary-container text-on-primary-container p-3 rounded-lg hover:opacity-90 transition-opacity shadow-[0_4px_10px_rgba(0,0,0,0.2)] flex-shrink-0 mb-1 mr-1">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+<div class="text-center mt-3">
+<span class="text-xs text-on-surface-variant/50 font-label">The Curator may produce inaccurate information. Verify critical code insights.</span>
+</div>
+</div>
+</main>
+<style>
+        /* Custom scrollbar for chat area to maintain zen-dark feel */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #31353c;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #494454;
+        }
+    </style>
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        let selectedRepo = null;
+
+        // Ensure marked uses highlight.js
+        marked.setOptions({
+            highlight: function (code, lang) {
+                const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                return hljs.highlight(code, { language }).value;
+            }
+        });
+
+        // 1. Initial Load Config
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Read URL Params
+            const params = new URLSearchParams(window.location.search);
+            const questionParam = params.get('q');
+            const repoParam = params.get('repo');
+            if (repoParam) { selectedRepo = repoParam; }
+
+            // Fetch Repos
+            await loadRepos();
+
+            // Auto-Shoot
+            if (questionParam) {
+                chatInput.value = questionParam;
+                sendMessage();
+            }
+        });
+
+        // 2. Load Repos into Sidebar
+        async function loadRepos() {
+            try {
+                const res = await fetch('/repos');
+                const repos = await res.json();
+                const list = document.getElementById('repo-list');
+                list.innerHTML = '';
+                
+                repos.forEach(repo => {
+                    let badge = 'bg-gray-500/20 text-gray-400';
+                    const lang = repo.language || '';
+                    if (lang.includes('Python')) badge = 'bg-blue-500/20 text-blue-400';
+                    else if (lang.includes('Java') || lang.includes('Script')) badge = 'bg-yellow-500/20 text-yellow-500';
+                    else if (lang.includes('TypeScript')) badge = 'bg-blue-400/20 text-blue-300';
+                    else if (lang.includes('HTML')) badge = 'bg-orange-500/20 text-orange-400';
+
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center gap-2 justify-between text-sm text-on-surface-variant hover:text-primary cursor-pointer transition-colors group p-1.5 rounded';
+                    
+                    if (selectedRepo === repo.name) {
+                        li.classList.remove('text-on-surface-variant');
+                        li.classList.add('bg-primary/20', 'text-primary');
+                    }
+
+                    li.onclick = () => {
+                        selectedRepo = repo.name;
+                        document.querySelectorAll('#repo-list li').forEach(el => {
+                            el.classList.remove('bg-primary/20', 'text-primary');
+                            el.classList.add('text-on-surface-variant');
+                        });
+                        li.classList.remove('text-on-surface-variant');
+                        li.classList.add('bg-primary/20', 'text-primary');
+                    };
+
+                    li.innerHTML = `
+                        <div class="flex items-center gap-2 truncate">
+                            <div class="w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-primary transition-colors flex-shrink-0"></div>
+                            <span class="font-mono text-[11px] truncate" title="${repo.name}">${repo.name}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 flex-shrink-0">
+                            <span class="text-[9px] px-1 rounded ${badge}">${repo.language || 'N/A'}</span>
+                            <span class="text-[10px] flex items-center gap-0.5"><span class="material-symbols-outlined text-[10px]">star</span>${repo.stars}</span>
+                        </div>
+                    `;
+                    list.appendChild(li);
+                });
+            } catch (e) { console.error('Failed to load repos:', e); }
+        }
+
+        document.getElementById('all-repos-btn').onclick = () => {
+            selectedRepo = null;
+            document.querySelectorAll('#repo-list li').forEach(el => {
+                el.classList.remove('bg-primary/20', 'text-primary');
+                el.classList.add('text-on-surface-variant');
+            });
+        };
+
+        // 3. Message Logic
+        async function sendMessage() {
+            const question = chatInput.value.trim();
+            if (!question) return;
+
+            chatInput.value = '';
+
+            // Render User Bubble
+            chatHistory.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="max-w-[85%] md:max-w-[70%] bg-primary-container text-on-primary-container p-4 rounded-xl rounded-br-sm shadow-[0_20px_40px_rgba(0,0,0,0.1)]">
+                        <p class="font-body text-sm md:text-base leading-relaxed whitespace-pre-wrap">${question}</p>
+                    </div>
+                </div>
+            `;
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            const loadingId = 'loading-' + Date.now();
+            chatHistory.innerHTML += `
+                <div id="${loadingId}" class="flex justify-start opacity-70">
+                    <div class="bg-surface-container-high p-4 rounded-xl rounded-bl-sm flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-xl animate-pulse">more_horiz</span>
+                    </div>
+                </div>
+            `;
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            try {
+                // Post to API with filter
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question, repo_filter: selectedRepo })
+                });
+                
+                if (!response.ok) throw new Error("API Failure");
+                const data = await response.json();
+                
+                document.getElementById(loadingId).remove();
+
+                // Format Sources
+                let sourcesHtml = '';
+                if (data.sources && data.sources.length > 0) {
+                    sourcesHtml = '<div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-outline-variant/10">';
+                    data.sources.forEach(src => {
+                        sourcesHtml += `
+                            <button class="bg-secondary-container hover:bg-surface-bright text-on-surface hover:text-primary transition-colors rounded-full px-3 py-1 font-label text-xs flex items-center gap-1.5 backdrop-blur-[20px]">
+                                <span class="material-symbols-outlined text-[14px]">code</span>
+                                ${src.repo} • ${src.source}
+                            </button>
+                        `;
+                    });
+                    sourcesHtml += '</div>';
+                }
+
+                // Render Parsed Markdown Bubble
+                const parsedMarkdown = marked.parse(data.answer);
+                
+                chatHistory.innerHTML += `
+                    <div class="flex justify-start">
+                        <div class="max-w-[95%] md:max-w-[80%] bg-surface-container-high p-6 rounded-xl flex gap-4">
+                            <div class="flex-shrink-0">
+                                <span class="material-symbols-outlined text-primary text-2xl p-2 bg-surface-container-lowest rounded-full shadow-inner">smart_toy</span>
+                            </div>
+                            <div class="flex-1 space-y-4 prose prose-invert max-w-none text-sm font-body text-on-surface-variant">
+                                ${parsedMarkdown}
+                                ${sourcesHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Run highlightJS on the rendered pre code blocks
+                document.querySelectorAll('pre code').forEach(block => {
+                    hljs.highlightElement(block);
+                });
+            } catch (err) {
+                document.getElementById(loadingId).remove();
+                chatHistory.innerHTML += `
+                    <div class="flex justify-start">
+                        <div class="bg-error-container text-on-error-container p-4 rounded-xl rounded-bl-sm font-body text-sm shadow-md">
+                            Something went wrong. Is the backend running?
+                        </div>
+                    </div>`;
+            }
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Auto-highlight current nav item based on URL
+        (function() {
+            const path = window.location.pathname;
+            const navLinks = document.querySelectorAll('nav a, aside nav a');
+            
+            navLinks.forEach(link => {
+                // Remove active styles from all links first
+                link.classList.remove(
+                    'bg-violet-500/10', 'text-violet-400', 
+                    'border-r-2', 'border-violet-500',
+                    'scale-95'
+                );
+                link.classList.add('text-slate-500');
+
+                const href = link.getAttribute('href') || '';
+
+                // Match current page and highlight it
+                if (path === '/' && href.endsWith('/')) {
+                    setActive(link);
+                } else if (path.includes('chat-ui') && href.includes('chat-ui')) {
+                    setActive(link);
+                } else if (path.includes('insights-ui') && href.includes('insights-ui')) {
+                    setActive(link);
+                }
+            });
+
+            function setActive(link) {
+                link.classList.remove('text-slate-500');
+                link.classList.add(
+                    'bg-violet-500/10', 
+                    'text-violet-400', 
+                    'border-r-2', 
+                    'border-violet-500'
+                );
+            }
+        })();
+    </script>
+</body></html>

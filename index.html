@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GitHub Portfolio Advisor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#10141a",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "inverse-on-surface": "#2d3137",
+                        "on-tertiary": "#482900",
+                        "on-tertiary-fixed": "#2c1700",
+                        "background": "#10141a",
+                        "outline": "#958ea0",
+                        "on-surface-variant": "#cbc3d7",
+                        "on-tertiary-container": "#3f2300",
+                        "secondary-container": "#42474f",
+                        "tertiary-container": "#ca801e",
+                        "tertiary-fixed": "#ffdcbb",
+                        "surface-container": "#1c2026",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#c2c7d0",
+                        "surface-container-low": "#181c22",
+                        "primary-container": "#b76dff",
+                        "on-primary-container": "#400071",
+                        "tertiary": "#ffb869",
+                        "surface-container-highest": "#31353c",
+                        "primary-fixed": "#f0dbff",
+                        "on-surface": "#dfe2eb",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "surface-container-lowest": "#0a0e14",
+                        "surface-bright": "#353940",
+                        "on-background": "#dfe2eb",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "on-secondary-fixed": "#171c23",
+                        "surface-variant": "#31353c",
+                        "on-secondary": "#2c3138",
+                        "secondary": "#c2c7d0",
+                        "surface": "#10141a",
+                        "surface-tint": "#ddb7ff",
+                        "secondary-fixed": "#dee2ec",
+                        "on-secondary-fixed-variant": "#42474f",
+                        "on-secondary-container": "#b1b5be",
+                        "error-container": "#93000a",
+                        "on-primary-fixed": "#2c0051",
+                        "on-primary": "#490080",
+                        "surface-container-high": "#262a31",
+                        "outline-variant": "#494454",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "inverse-primary": "#842bd2",
+                        "primary": "#ddb7ff",
+                        "inverse-surface": "#dfe2eb",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #10141a;
+            color: #dfe2eb;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+        h1, h2, h3, h4, h5, h6, .font-headline {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex h-screen w-full relative">
+    <div id="health-banner" class="hidden absolute top-0 left-0 right-0 bg-error text-on-error px-4 py-2 text-center text-sm font-label z-[100] shadow-md">
+        Backend offline — run uvicorn main:app --reload --port 8000
+    </div>
+<!-- TopNavBar for Mobile -->
+<div class="md:hidden flex justify-between items-center w-full px-6 py-4 bg-slate-900/60 backdrop-blur-xl docked full-width top-0 sticky z-50 tonal-transition-from-surface-low-to-surface shadow-2xl shadow-black/40 absolute top-0 left-0 right-0">
+<div class="text-xl font-bold text-slate-100 font-headline tracking-tight">GitHub Portfolio Advisor</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-400 hover:text-violet-300 transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-violet-300 transition-colors" data-icon="settings">settings</span>
+</div>
+</div>
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-[280px] fixed left-0 top-0 overflow-y-auto bg-[#181c22] tonal shift from bg-[#10141a] to bg-[#181c22] flat py-8 px-4 z-40 border-r border-outline-variant/15">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="hub">hub</span>
+</div>
+<div>
+<h1 class="text-violet-400 font-black font-headline tracking-tight leading-tight">The Curator</h1>
+<p class="text-xs text-on-surface-variant/60 font-body">v1.0.2</p>
+</div>
+</div>
+<button class="w-full mb-8 py-3 px-4 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-medium text-sm transition-opacity hover:opacity-90 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+            New Analysis
+        </button>
+<div class="flex-1">
+<p class="text-xs uppercase tracking-widest text-on-surface-variant/50 font-label mb-4 px-2">Navigation</p>
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-body text-sm" href="http://localhost:8000/">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+                        Overview
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-body text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="inventory_2">inventory_2</span>
+                        Repositories
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-violet-500/10 text-violet-400 border-r-2 border-violet-500 font-body text-sm" href="http://localhost:8000/insights-ui">
+<span class="material-symbols-outlined text-[20px]" data-icon="insights">insights</span>
+                        Insights
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-body text-sm" href="http://localhost:8000/chat-ui">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_fix_high">auto_fix_high</span>
+                        Chat
+                    </a>
+</li>
+</ul>
+<div class="mt-8">
+<p id="all-repos-btn" class="text-xs uppercase tracking-widest text-on-surface-variant/50 font-label mb-4 px-2 flex justify-between items-center cursor-pointer hover:text-primary transition-colors">
+                    All Repos
+                    <span class="material-symbols-outlined text-[16px]" data-icon="search">search</span>
+</p>
+<ul id="repo-list" class="space-y-2 px-2">
+</ul>
+</ul>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/15">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-body text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 hover:bg-slate-800/50 hover:text-slate-200 transition-all font-body text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="menu_book">menu_book</span>
+                        Documentation
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-[280px] flex flex-col h-screen overflow-hidden bg-surface-container-low mt-16 md:mt-0 relative">
+<!-- Ambient Glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="flex-1 flex flex-col items-center justify-center p-8 z-10">
+<!-- Large Subtle Icon -->
+<div class="mb-8 opacity-20 transform scale-150">
+<svg aria-hidden="true" class="w-32 h-32 fill-current text-on-surface-variant" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<!-- Welcome Text -->
+<h2 class="text-3xl md:text-4xl font-headline font-bold text-on-surface mb-12 tracking-tight text-center max-w-2xl">
+                Ask anything about your GitHub projects
+            </h2>
+<!-- Example Question Chips -->
+<div id="question-chips" class="flex flex-wrap justify-center gap-4 max-w-3xl">
+<button class="px-5 py-3 rounded-full bg-secondary-container hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-all duration-200 font-label text-sm flex items-center gap-2 border border-outline-variant/15 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="search">search</span>
+                    What projects have I built?
+                </button>
+<button class="px-5 py-3 rounded-full bg-secondary-container hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-all duration-200 font-label text-sm flex items-center gap-2 border border-outline-variant/15 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="code">code</span>
+                    What technologies do I use most?
+                </button>
+<button class="px-5 py-3 rounded-full bg-secondary-container hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-all duration-200 font-label text-sm flex items-center gap-2 border border-outline-variant/15 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="trending_up">trending_up</span>
+                    What should I improve in my projects?
+                </button>
+<button class="px-5 py-3 rounded-full bg-secondary-container hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-all duration-200 font-label text-sm flex items-center gap-2 border border-outline-variant/15 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="rocket_launch">rocket_launch</span>
+                    Which project is most production ready?
+                </button>
+</div>
+</div>
+<!-- Input Area Container (The Command Line) -->
+<div class="p-6 pb-8 bg-surface-container-low border-t border-outline-variant/10 z-20">
+<div class="max-w-3xl mx-auto relative group">
+<div class="absolute -inset-0.5 bg-primary/20 rounded-xl blur opacity-0 group-focus-within:opacity-100 transition duration-500 pointer-events-none"></div>
+<div class="relative flex items-center bg-surface-container-highest rounded-xl p-2 group-focus-within:bg-surface-bright transition-colors border border-outline-variant/20">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<input id="welcome-input" class="flex-1 bg-transparent border-none text-on-surface font-body text-base px-4 py-2 focus:ring-0 placeholder:text-on-surface-variant/50" placeholder="Message the Advisor..." type="text"/>
+<button id="welcome-send-btn" class="p-2 bg-gradient-to-r from-primary to-primary-container text-on-primary-container rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+<p class="text-xs text-center text-on-surface-variant/40 mt-3 font-label">The Advisor can make mistakes. Consider verifying technical advice.</p>
+</div>
+</div>
+</main>
+    <script>
+        let selectedRepo = null;
+
+        // Health check
+        fetch('/health')
+            .then(res => { if (!res.ok) throw new Error("offline"); })
+            .catch(() => document.getElementById('health-banner').classList.remove('hidden'));
+
+        // Load Repos
+        async function loadRepos() {
+            try {
+                const res = await fetch('/repos');
+                const repos = await res.json();
+                const list = document.getElementById('repo-list');
+                list.innerHTML = '';
+                
+                repos.forEach(repo => {
+                    let badge = 'bg-gray-500/20 text-gray-400';
+                    const lang = repo.language || '';
+                    if (lang.includes('Python')) badge = 'bg-blue-500/20 text-blue-400';
+                    else if (lang.includes('Java') || lang.includes('Script')) badge = 'bg-yellow-500/20 text-yellow-500';
+                    else if (lang.includes('TypeScript')) badge = 'bg-blue-400/20 text-blue-300';
+                    else if (lang.includes('HTML')) badge = 'bg-orange-500/20 text-orange-400';
+
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center gap-2 justify-between text-sm text-on-surface-variant hover:text-primary cursor-pointer transition-colors group p-1.5 rounded';
+                    
+                    li.onclick = () => {
+                        selectedRepo = repo.name;
+                        document.querySelectorAll('#repo-list li').forEach(el => {
+                            el.classList.remove('bg-primary/20', 'text-primary');
+                            el.classList.add('text-on-surface-variant');
+                        });
+                        li.classList.remove('text-on-surface-variant');
+                        li.classList.add('bg-primary/20', 'text-primary');
+                    };
+
+                    li.innerHTML = `
+                        <div class="flex items-center gap-2 truncate">
+                            <div class="w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-primary transition-colors flex-shrink-0"></div>
+                            <span class="font-mono text-[11px] truncate" title="${repo.name}">${repo.name}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 flex-shrink-0">
+                            <span class="text-[9px] px-1 rounded ${badge}">${repo.language || 'N/A'}</span>
+                            <span class="text-[10px] flex items-center gap-0.5"><span class="material-symbols-outlined text-[10px]">star</span>${repo.stars}</span>
+                        </div>
+                    `;
+                    list.appendChild(li);
+                });
+            } catch (e) { console.error('Failed to load repos:', e); }
+        }
+        loadRepos();
+
+        // Clear filter
+        document.getElementById('all-repos-btn').onclick = () => {
+            selectedRepo = null;
+            document.querySelectorAll('#repo-list li').forEach(el => {
+                el.classList.remove('bg-primary/20', 'text-primary');
+                el.classList.add('text-on-surface-variant');
+            });
+        };
+
+        // Navigation
+        function goToChat(q) {
+            let url = `/chat-ui?q=${encodeURIComponent(q)}`;
+            if (selectedRepo) url += `&repo=${encodeURIComponent(selectedRepo)}`;
+            window.location.href = url;
+        }
+
+        document.querySelectorAll('#question-chips button').forEach(btn => {
+            btn.onclick = () => {
+                const text = [...btn.childNodes]
+                    .filter(n => n.nodeType === 3)
+                    .map(n => n.textContent.trim())
+                    .join('').trim();
+                goToChat(text);
+            };
+        });
+
+        const input = document.getElementById('welcome-input');
+        const sendBtn = document.getElementById('welcome-send-btn');
+        const send = () => { if (input.value.trim()) goToChat(input.value.trim()); };
+        sendBtn.onclick = send;
+        input.addEventListener('keypress', e => {
+            if (e.key === 'Enter') send();
+        });
+
+        // Auto-highlight current nav item based on URL
+        (function() {
+            const path = window.location.pathname;
+            const navLinks = document.querySelectorAll('nav a, aside nav a');
+            
+            navLinks.forEach(link => {
+                // Remove active styles from all links first
+                link.classList.remove(
+                    'bg-violet-500/10', 'text-violet-400', 
+                    'border-r-2', 'border-violet-500',
+                    'scale-95'
+                );
+                link.classList.add('text-slate-500');
+
+                const href = link.getAttribute('href') || '';
+
+                // Match current page and highlight it
+                if (path === '/' && href.endsWith('/')) {
+                    setActive(link);
+                } else if (path.includes('chat-ui') && href.includes('chat-ui')) {
+                    setActive(link);
+                } else if (path.includes('insights-ui') && href.includes('insights-ui')) {
+                    setActive(link);
+                }
+            });
+
+            function setActive(link) {
+                link.classList.remove('text-slate-500');
+                link.classList.add(
+                    'bg-violet-500/10', 
+                    'text-violet-400', 
+                    'border-r-2', 
+                    'border-violet-500'
+                );
+            }
+        })();
+    </script>
+</body></html>
